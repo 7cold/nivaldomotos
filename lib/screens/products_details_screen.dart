@@ -1,6 +1,7 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:nivaldomotos/constants/colors.dart';
 import 'package:nivaldomotos/constants/fonts.dart';
 import 'package:nivaldomotos/datas/cart_product.dart';
@@ -29,6 +30,9 @@ class _ProductScreenDetailsState extends State<ProductScreenDetails> {
 
   @override
   Widget build(BuildContext context) {
+    var priceMask = new MoneyMaskedTextController(leftSymbol: 'R\$ ');
+    priceMask.updateValue(product.price);
+
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -119,15 +123,9 @@ class _ProductScreenDetailsState extends State<ProductScreenDetails> {
                     color: Colors.transparent,
                     child: RichText(
                       text: TextSpan(
-                        text: 'R\$ ',
-                        style: TextStyle(
-                            color: Color(backgroundColorDark),
-                            fontFamily: fontReg,
-                            fontSize: 16),
                         children: <TextSpan>[
                           TextSpan(
-                              text: '${product.price.toStringAsFixed(2)}',
-                              style: detailPriceStyle),
+                              text: priceMask.text, style: detailPriceStyle),
                         ],
                       ),
                     ),

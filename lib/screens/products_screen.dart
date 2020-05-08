@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:nivaldomotos/constants/colors.dart';
 import 'package:nivaldomotos/constants/fonts.dart';
 import 'package:nivaldomotos/datas/product_data.dart';
@@ -73,6 +74,11 @@ class ProductsScreen extends StatelessWidget {
                         ProductData data = ProductData.fromDocument(
                             snapshot.data.documents[index]);
                         data.category = this.snapshot.documentID;
+
+                        var priceMask =
+                            new MoneyMaskedTextController(leftSymbol: 'R\$ ');
+                        priceMask.updateValue(data.price);
+
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -154,16 +160,10 @@ class ProductsScreen extends StatelessWidget {
                                                   color: Colors.transparent,
                                                   child: RichText(
                                                     text: TextSpan(
-                                                      text: 'R\$ ',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              backgroundColorDark),
-                                                          fontFamily: fontReg,
-                                                          fontSize: 13),
                                                       children: <TextSpan>[
                                                         TextSpan(
                                                             text:
-                                                                '${data.price.toStringAsFixed(2)}',
+                                                                priceMask.text,
                                                             style: data.promocao ==
                                                                     true
                                                                 ? cardPricePromoStyle

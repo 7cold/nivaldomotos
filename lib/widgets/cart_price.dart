@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:nivaldomotos/constants/fonts.dart';
 import 'package:nivaldomotos/models/cart_model.dart';
 import 'package:nivaldomotos/widgets/button.dart';
@@ -21,11 +22,27 @@ class CartPrice extends StatelessWidget {
             double discount = model.getDiscount();
             double ship = model.getShipPrice();
 
+            double total = (price + ship - discount);
+
+            var subTotalMask =
+                new MoneyMaskedTextController(leftSymbol: 'R\$ ');
+            subTotalMask.updateValue(price);
+
+            var descontoMask =
+                new MoneyMaskedTextController(leftSymbol: 'R\$ ');
+            descontoMask.updateValue(discount);
+
+            var entregaMask = new MoneyMaskedTextController(leftSymbol: 'R\$ ');
+            entregaMask.updateValue(ship);
+
+            var totalMask = new MoneyMaskedTextController(leftSymbol: 'R\$ ');
+            totalMask.updateValue(total);
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text(
-                  "Resumo do Pedido",
+                  "Resumo do Pedido".toUpperCase(),
                   textAlign: TextAlign.start,
                   style: cartTitleStyle,
                 ),
@@ -36,8 +53,7 @@ class CartPrice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text("Subtotal", style: cartSubTitleStyle),
-                    Text("R\$ ${price.toStringAsFixed(2)}",
-                        style: cartSubTitleStyle)
+                    Text(subTotalMask.text, style: cartSubTitleStyle)
                   ],
                 ),
                 Divider(),
@@ -45,8 +61,7 @@ class CartPrice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text("Desconto", style: cartSubTitleStyle),
-                    Text("R\$ ${discount.toStringAsFixed(2)}",
-                        style: cartSubTitleStyle)
+                    Text(descontoMask.text, style: cartSubTitleStyle)
                   ],
                 ),
                 Divider(),
@@ -54,8 +69,7 @@ class CartPrice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text("Entrega", style: cartSubTitleStyle),
-                    Text("R\$ ${ship.toStringAsFixed(2)}",
-                        style: cartSubTitleStyle)
+                    Text(entregaMask.text, style: cartSubTitleStyle)
                   ],
                 ),
                 Divider(),
@@ -70,7 +84,7 @@ class CartPrice extends StatelessWidget {
                       style: cartTitleStyle,
                     ),
                     Text(
-                      "R\$ ${(price + ship - discount).toStringAsFixed(2)}",
+                      totalMask.text,
                       style: cartTitleStyle,
                     )
                   ],

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nivaldomotos/constants/colors.dart';
 import 'package:nivaldomotos/constants/contants.dart';
@@ -17,6 +18,8 @@ class ProductCartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget _buildProducts() {
       CartModel.of(context).updatePrices();
+      var priceMask = new MoneyMaskedTextController(leftSymbol: 'R\$ ');
+      priceMask.updateValue(cartProduct.productData.price);
       return Row(
         children: <Widget>[
           Container(
@@ -46,13 +49,8 @@ class ProductCartScreen extends StatelessWidget {
                   ),
                   RichText(
                     text: TextSpan(
-                      text: 'R\$ ',
-                      style: cartSubTitleStyle,
                       children: <TextSpan>[
-                        TextSpan(
-                            text:
-                                '${cartProduct.productData.price.toStringAsFixed(2)}',
-                            style: cartTitleStyle),
+                        TextSpan(text: priceMask.text, style: cartTitleStyle),
                       ],
                     ),
                   ),

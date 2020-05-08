@@ -1,13 +1,17 @@
+import 'package:flare_flutter/flare_controller.dart';
+import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:nivaldomotos/constants/colors.dart';
 import 'package:nivaldomotos/constants/fonts.dart';
 import 'package:nivaldomotos/widgets/button.dart';
-
 import 'my_orders.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 class OrderScreen extends StatelessWidget {
   final String orderId;
   OrderScreen(this.orderId);
+
+  final FlareControls _controls = FlareControls();
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +34,14 @@ class OrderScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset(
-              "assets/images/checkout.png",
-              scale: 8,
+            Container(
+              height: 200,
+              child: FlareActor(
+                "assets/animators/success_not_repeat.flr",
+                animation: "Untitled",
+                fit: BoxFit.contain,
+                controller: _controls,
+              ),
             ),
             Text(
               "Pedido realizado com sucesso!",
