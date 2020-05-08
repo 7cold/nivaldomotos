@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "230412053175",
+    "firebase_url": "https://nivaldomotos-b6e53.firebaseio.com",
+    "project_id": "nivaldomotos-b6e53",
+    "storage_bucket": "nivaldomotos-b6e53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230412053175:android:6ab4b88ec828ff1efd7b32",
+        "android_client_info": {
+          "package_name": "com.cold.nivaldomotos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "230412053175-ft97kun600bamdc5satu32nllok9sg9v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSt9-HV7q-QTKZmaANv5OYohXIJCm1MzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "230412053175-ft97kun600bamdc5satu32nllok9sg9v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
