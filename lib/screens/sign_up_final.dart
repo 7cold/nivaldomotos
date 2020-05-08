@@ -5,7 +5,6 @@ import 'package:nivaldomotos/constants/colors.dart';
 import 'package:nivaldomotos/constants/fonts.dart';
 import 'package:nivaldomotos/models/user_model.dart';
 import 'package:nivaldomotos/screens/home_screen.dart';
-import 'package:nivaldomotos/screens/login_screen.dart';
 import 'package:nivaldomotos/widgets/button.dart';
 import 'package:nivaldomotos/widgets/loading.dart';
 import 'package:nivaldomotos/widgets/text_form_field.dart';

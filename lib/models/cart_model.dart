@@ -65,6 +65,15 @@ class CartModel extends Model {
     notifyListeners();
   }
 
+  void pararPedido(String id) {
+    Firestore.instance
+        .collection("orders")
+        .document(id)
+        .updateData({"status": 0});
+
+    notifyListeners();
+  }
+
   void incProduct(CartProduct cartProduct) {
     cartProduct.quantity++;
 

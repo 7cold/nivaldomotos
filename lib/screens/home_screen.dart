@@ -1,7 +1,6 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nivaldomotos/constants/colors.dart';
 import 'package:nivaldomotos/constants/contants.dart';
@@ -203,7 +202,7 @@ class HomeScreen extends StatelessWidget {
                                       child: Carousel(
                                           borderRadius: true,
                                           boxFit: BoxFit.cover,
-                                          autoplay: true,
+                                          autoplay: false,
                                           autoplayDuration:
                                               Duration(seconds: 8),
                                           animationCurve:
@@ -212,7 +211,7 @@ class HomeScreen extends StatelessWidget {
                                           dotIncreasedColor:
                                               Color(backgroundColor),
                                           dotBgColor: Color(primaryColor),
-                                          dotPosition: DotPosition.bottomRight,
+                                          dotPosition: DotPosition.topRight,
                                           dotVerticalPadding: 0.0,
                                           showIndicator: true,
                                           indicatorBgPadding: 6.0,
@@ -232,7 +231,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 40),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 30),
                     height: 400,
                     width: MediaQuery.of(context).size.width,
                     child: Column(
@@ -244,7 +243,17 @@ class HomeScreen extends StatelessWidget {
                           style: titleHomeStyle,
                         ),
                         SizedBox(height: 20),
-                        GoogleMaps(MediaQuery.of(context).size.width, 300)
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: <Widget>[
+                              LoadingWidget(),
+                              GoogleMaps(
+                                  MediaQuery.of(context).size.width, 300),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -270,49 +279,43 @@ class GoogleMaps extends StatefulWidget {
 }
 
 class _GoogleMapsState extends State<GoogleMaps> {
-  GoogleMapController _controller;
+  Completer<GoogleMapController> _controller = Completer();
   bool isMapCreated = false;
 
-  Future<String> getJsonFile(String path) async {
-    return await rootBundle.loadString(path);
+  Timer _timer;
+  bool exibir = false;
+
+  _GoogleMapsState() {
+    _timer = new Timer(const Duration(milliseconds: 4000), () {
+      setState(() {
+        exibir = true;
+      });
+    });
   }
 
-  changeMapMode() {
-    getJsonFile("assets/maps/dark-map.json").then(setMapStyle);
-  }
-
-  void setMapStyle(String mapStyle) {
-    _controller.setMapStyle(mapStyle);
+  @override
+  void dispose() {
+    super.dispose();
+    _timer.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: widget.height,
-      width: widget.widht,
-      child: GoogleMap(
-        scrollGesturesEnabled: false,
-        zoomGesturesEnabled: false,
-        onMapCreated: (GoogleMapController controller) {
-          _controller = controller;
-          isMapCreated = true;
-          changeMapMode();
-        },
-        buildingsEnabled: false,
-        initialCameraPosition: CameraPosition(
-          target: LatLng(-22.2792849, -46.3574827),
-          zoom: 16,
-        ),
-        markers: {
-          Marker(
-            markerId: MarkerId("Nivaldo Motos"),
-            position: LatLng(-22.2792849, -46.3574827),
-            infoWindow: InfoWindow(
-              title: "Nivaldo Motos",
+    return exibir == false
+        ? SizedBox()
+        : Container(
+            height: widget.height,
+            width: widget.widht,
+            child: GoogleMap(
+              mapType: MapType.normal,
+              initialCameraPosition: CameraPosition(
+                target: LatLng(-22.2793989, -46.356904),
+                zoom: 16.0,
+              ),
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              },
             ),
-          ),
-        },
-      ),
-    );
+          );
   }
 }

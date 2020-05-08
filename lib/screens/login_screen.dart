@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nivaldomotos/constants/colors.dart';
@@ -16,6 +18,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  Timer _timer;
+
   showAlertDialog(BuildContext c) {
     showDialog(
         context: c,
@@ -33,6 +37,20 @@ class _LoginScreenState extends State<LoginScreen> {
         });
   }
 
+  _LoginScreenState() {
+    _timer = new Timer(const Duration(milliseconds: 0), () {
+      setState(() {
+        Future.delayed(Duration.zero, () => showAlertDialog(context));
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
 
@@ -41,7 +59,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration.zero, () => showAlertDialog(context));
     return Scaffold(
         backgroundColor: Color(backgroundColor),
         key: _scaffoldKey,

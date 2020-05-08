@@ -21,23 +21,19 @@ class _AtendimentoScreenState extends State<AtendimentoScreen> {
     initPlatformState();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
+
     try {
       platformVersion = await FlutterOpenWhatsapp.platformVersion;
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
       _platformVersion = platformVersion;
+      print(_platformVersion);
     });
   }
 
@@ -78,8 +74,8 @@ class _AtendimentoScreenState extends State<AtendimentoScreen> {
                 SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
-                    FlutterOpenWhatsapp.sendSingleMessage(
-                        "5535997371366", "Hello");
+                    FlutterOpenWhatsapp.sendSingleMessage("5535997371366",
+                        "Olá, estou com algumas dúvidas no app e gostaria de ser atendido.");
                   },
                   child: Material(
                     elevation: 7,

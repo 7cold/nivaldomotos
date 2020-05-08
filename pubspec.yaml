@@ -15,7 +15,7 @@ dependencies:
   scoped_model: ^1.0.1
   firebase_auth: ^0.11.1+12
   font_awesome_flutter: ^8.8.1
-  google_maps_flutter: ^0.5.21+17
+  google_maps_flutter: ^0.5.27+1
   flare_flutter: ^2.0.1
   date_format: ^1.0.8
   page_transition: ^1.1.5
