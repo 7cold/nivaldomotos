@@ -15,7 +15,11 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  var typeShipping = "retirar_loja";
+  String typeShipping;
+  void initState() {
+    super.initState();
+    typeShipping = "retirar_loja";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -207,7 +211,8 @@ class _CartScreenState extends State<CartScreen> {
                   if (orderId != null) {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (context) => OrderScreen(orderId),
+                        builder: (context) =>
+                            OrderScreen(orderId, typeShipping),
                       ),
                     );
                   }

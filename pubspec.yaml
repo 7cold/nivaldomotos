@@ -5,11 +5,14 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
+module:
+  androidX: true
+
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^0.1.2
-  cloud_firestore: ^0.12.9
+  cloud_firestore: ^0.13.5
   carousel_pro: ^1.0.0
   transparent_image: ^1.0.0
   scoped_model: ^1.0.1
@@ -21,11 +24,17 @@ dependencies:
   page_transition: ^1.1.5
   flutter_masked_text: ^0.8.0
   flutter_open_whatsapp: ^0.1.2
-  url_launcher: ^3.0.0
+  url_launcher: ^5.4.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons:
+
+flutter_icons:
+  image_path: 'assets/images/icon_app.png'
+  android: true
+  ios: true
 
 
 # For information on the generic Dart part of this file, see the

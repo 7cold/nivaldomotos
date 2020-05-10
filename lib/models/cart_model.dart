@@ -11,7 +11,7 @@ class CartModel extends Model {
   List<CartProduct> products = [];
 
   String couponCode;
-  String shipping;
+  String shipping = "retirar_loja";
   double setShipPrice = 0.0;
   int discountPercentage = 0;
 
@@ -138,6 +138,7 @@ class CartModel extends Model {
     DocumentReference refOrder =
         await Firestore.instance.collection("orders").add({
       "clientId": user.firebaseUser.uid,
+      "clienteNome": user.userData['nome'] + " " + user.userData['sobrenome'],
       "products": products.map((cartProduct) => cartProduct.toMap()).toList(),
       "shipPrice": shipPrice,
       "date": Timestamp.now(),
@@ -153,7 +154,10 @@ class CartModel extends Model {
         .document(user.firebaseUser.uid)
         .collection("orders")
         .document(refOrder.documentID)
-        .setData({"orderId": refOrder.documentID});
+        .setData({
+      "orderId": refOrder.documentID,
+      "date": Timestamp.now(),
+    });
 
     QuerySnapshot query = await Firestore.instance
         .collection("users")

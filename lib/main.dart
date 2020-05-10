@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nivaldomotos/models/user_model.dart';
-import 'package:nivaldomotos/screens/index_screen.dart';
+import 'package:nivaldomotos/screens/splash_screen.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'constants/colors.dart';
 import 'models/cart_model.dart';
 
 void main() => runApp(MyApp());
@@ -16,7 +17,10 @@ class MyApp extends StatelessWidget {
           model: CartModel(model),
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: IndexScreen(),
+            theme: ThemeData(
+              primarySwatch: coral,
+            ),
+            home: SplashScreen(),
           ),
         );
       }),

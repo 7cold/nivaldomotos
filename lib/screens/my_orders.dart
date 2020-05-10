@@ -32,6 +32,7 @@ class MyOrders extends StatelessWidget {
                 .collection("users")
                 .document(uid)
                 .collection("orders")
+                .orderBy("date")
                 .getDocuments(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {

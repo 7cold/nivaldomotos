@@ -99,14 +99,23 @@ TextStyle categoryTitleStyle = TextStyle(
 TextStyle orderTitleStyle = TextStyle(
     fontFamily: fontExtraBold, color: Color(backgroundColorDark), fontSize: 14);
 
+TextStyle orderTitle2Style = TextStyle(
+    fontFamily: fontExtraBold, color: Color(backgroundColorDark), fontSize: 18);
+
 TextStyle ordersubTitleStyle = TextStyle(
     fontFamily: fontMedium, color: Color(backgroundColorDark), fontSize: 14);
 
 TextStyle orderTextStyle = TextStyle(
     fontFamily: fontLight, color: Color(backgroundColorDark), fontSize: 14);
 
+TextStyle orderText2Style = TextStyle(
+    fontFamily: fontReg, color: Color(backgroundColorDark), fontSize: 16);
+
 TextStyle orderNumberCircleStyle = TextStyle(
     fontFamily: fontExtraBold, color: Color(backgroundColor), fontSize: 14);
+
+TextStyle orderSuccessStyle = TextStyle(
+    fontFamily: fontExtraBold, color: Color(successColor), fontSize: 18);
 
 // ---------------------------signup-----------------------------------------
 // --------------------------------------------------------------------------

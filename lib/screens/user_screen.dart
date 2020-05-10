@@ -103,7 +103,7 @@ class UserScreen extends StatelessWidget {
                                         color: Colors.white,
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
+                                        padding: const EdgeInsets.all(13.0),
                                         child: Image.asset(
                                             "assets/icons/user_info.png"),
                                       ),
@@ -160,7 +160,7 @@ class UserScreen extends StatelessWidget {
                                         color: Colors.white,
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
+                                        padding: const EdgeInsets.all(11.0),
                                         child:
                                             Image.asset("assets/icons/box.png"),
                                       ),
@@ -211,7 +211,7 @@ class UserScreen extends StatelessWidget {
                                         color: Colors.white,
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
+                                        padding: const EdgeInsets.all(13.0),
                                         child: Image.asset(
                                             "assets/icons/chat.png"),
                                       ),
