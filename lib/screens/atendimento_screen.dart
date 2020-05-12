@@ -63,13 +63,17 @@ class _AtendimentoScreenState extends State<AtendimentoScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "Seja bem vindo a nossa central de relacionamento",
-                  style: textAtendimento,
+                  "Seja Bem vido a nossa central de relacionamento. Escolha uma opção pra continuar.",
+                  style: subTextAtendimento,
+                  textAlign: TextAlign.left,
                 ),
                 SizedBox(height: 10),
-                Text(
-                  "Escolha uma opção pra continuar",
-                  style: subTextAtendimento,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    "Horário para atendimento: Seg á Sex, das 8 as 18. Sáb das 8 as 12.",
+                    style: subText2Atendimento,
+                  ),
                 ),
                 SizedBox(height: 20),
                 GestureDetector(

@@ -142,3 +142,7 @@ TextStyle subTextAtendimento = TextStyle(
     fontFamily: fontReg,
     color: Color(backgroundColorDark).withOpacity(0.65),
     fontSize: 20);
+TextStyle subText2Atendimento = TextStyle(
+    fontFamily: fontReg,
+    color: Color(backgroundColorDark).withOpacity(0.65),
+    fontSize: 16);

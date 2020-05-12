@@ -8,6 +8,8 @@ import 'package:nivaldomotos/widgets/discount_card.dart';
 import 'package:nivaldomotos/widgets/product_cart_screen.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'order_screen.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:http/http.dart' as http;
 
 class CartScreen extends StatefulWidget {
   @override
@@ -15,10 +17,48 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
+  String data = "Nenhuma notificação";
+
   String typeShipping;
   void initState() {
     super.initState();
     typeShipping = "retirar_loja";
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) {
+        print('on message $message');
+
+        setState(() {
+          data = message.toString();
+        });
+      },
+      onResume: (Map<String, dynamic> message) {
+        print('on resume $message');
+
+        setState(() {
+          data = message.toString();
+        });
+      },
+      onLaunch: (Map<String, dynamic> message) {
+        print('on launch $message');
+
+        setState(() {
+          data = message.toString();
+        });
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+  }
+
+  void enviarNotificacao() {
+    String DATA =
+        "{\"notification\": {\"body\": \"Nova compra efetuada!\"}, \"priority\": \"high\", \"data\": {\"click_action\": \"FLUTTER_NOTIFICATION_CLICK\", \"id\": \"1\", \"status\": \"done\"}, \"to\": \"/topics/allDevices\"}";
+    http.post("https://fcm.googleapis.com/fcm/send", body: DATA, headers: {
+      "Content-Type": "application/json",
+      "Authorization":
+          "key=AAAANaWg6rc:APA91bGN-yad0Ur2d5EMYyF_xdUsia2JAdQzhGHs2mJupX0osOZM2x6H4lg3KCazP16O_2l-HjoxUIFJzaOvUM75mew9jY35HSH7aHHFBgGK9XTkSdgtix2L3EO11Wj7g3-ooy1IFZY8"
+    });
   }
 
   @override
@@ -160,7 +200,7 @@ class _CartScreenState extends State<CartScreen> {
                                       CartModel.of(context)
                                           .setShipping(typeShipping);
                                       CartModel.of(context)
-                                          .setShippingPrice(9.99);
+                                          .setShippingPrice(6.99);
                                       print(typeShipping);
                                     });
                                   },
@@ -209,6 +249,7 @@ class _CartScreenState extends State<CartScreen> {
                 CartPrice(() async {
                   String orderId = await model.finishOrder();
                   if (orderId != null) {
+                    enviarNotificacao();
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (context) =>
