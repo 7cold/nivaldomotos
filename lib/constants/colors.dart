@@ -12,6 +12,12 @@ const int successColor = 0XFF09b55e;
 const int failColor = 0XFFB51C09;
 const int whatsColor = 0XFF4AC959;
 const int mobileColor = 0XFF3498db;
+const int mpColor = 0XFF96D2F1;
+
+const int payRed = 0XFFe74c3c;
+const int payGreen = 0XFF2ecc71;
+const int payYellow = 0XFFf1c40f;
+const int payBlue = 0XFF3498db;
 
 const MaterialColor coral = const MaterialColor(
   0xFFde7757,

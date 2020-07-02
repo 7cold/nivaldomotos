@@ -32,7 +32,7 @@ class ProductCartScreen extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 20, right: 10, top: 5),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

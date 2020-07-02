@@ -24,7 +24,7 @@ class _UserEditState extends State<UserEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(accentColor),
+      backgroundColor: Color(backgroundColor),
       appBar: AppBar(
         title: Text(
           "MEUS DADOS",
@@ -53,7 +53,6 @@ class _UserEditState extends State<UserEdit> {
               _controllerBairro.text = model.userData['bairro'];
               _controllerCidade.text = model.userData['cidade'];
               return Container(
-                height: MediaQuery.of(context).size.height,
                 child: Column(
                   children: <Widget>[
                     Column(

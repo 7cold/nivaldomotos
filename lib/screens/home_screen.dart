@@ -1,5 +1,6 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nivaldomotos/constants/colors.dart';
@@ -12,12 +13,51 @@ import 'package:nivaldomotos/screens/products_screen.dart';
 import 'package:nivaldomotos/screens/user_screen.dart';
 import 'package:nivaldomotos/widgets/cart_icon.dart';
 import 'package:nivaldomotos/widgets/loading.dart';
+import 'package:nivaldomotos/widgets/notification.dart';
 import 'package:nivaldomotos/widgets/user_icon.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'dart:async';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
+  String data = "Nenhuma notificação";
+
+  void initState() {
+    super.initState();
+
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) {
+        print('on message $message');
+
+        setState(() {
+          data = message.toString();
+        });
+      },
+      onResume: (Map<String, dynamic> message) {
+        print('on resume $message');
+
+        setState(() {
+          data = message.toString();
+        });
+      },
+      onLaunch: (Map<String, dynamic> message) {
+        print('on launch $message');
+
+        setState(() {
+          data = message.toString();
+        });
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,6 +211,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 10),
+                  SizedBox(height: 10),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     width: MediaQuery.of(context).size.width,
@@ -250,14 +291,16 @@ class HomeScreen extends StatelessWidget {
                             children: <Widget>[
                               LoadingWidget(),
                               GoogleMaps(
-                                  MediaQuery.of(context).size.width, 300),
+                                MediaQuery.of(context).size.width,
+                                300,
+                              ),
                             ],
                           ),
                         )
                       ],
                     ),
                   ),
-                  SizedBox(height: 40),
+                  SizedBox(height: 20),
                 ],
               ),
             );
@@ -307,6 +350,7 @@ class _GoogleMapsState extends State<GoogleMaps> {
             height: widget.height,
             width: widget.widht,
             child: GoogleMap(
+              scrollGesturesEnabled: false,
               mapType: MapType.normal,
               initialCameraPosition: CameraPosition(
                 target: LatLng(-22.2793989, -46.356904),

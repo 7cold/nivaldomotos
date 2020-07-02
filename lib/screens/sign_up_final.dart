@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -262,6 +264,7 @@ class _SignUpFinalState extends State<SignUpFinal> {
                               "end_numero": _endnumeroController.text,
                               "cidade": _cidadeController.text,
                               "bairro": _bairroController.text,
+                              "data_cadastro": Timestamp.now()
                             };
 
                             model.signUp(
@@ -284,7 +287,20 @@ class _SignUpFinalState extends State<SignUpFinal> {
     );
   }
 
+  void _carregando() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActivityIndicator(
+          animating: true,
+          radius: 20,
+        );
+      },
+    );
+  }
+
   void _onSuccess() {
+    _carregando();
     Future.delayed(Duration(seconds: 2)).then((_) {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (contetex) => HomeScreen()));

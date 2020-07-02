@@ -9,8 +9,8 @@ import 'package:flare_flutter/flare_actor.dart';
 
 class OrderScreen extends StatelessWidget {
   final String orderId;
-  final String type_shipping;
-  OrderScreen(this.orderId, this.type_shipping);
+  final String typeShipping;
+  OrderScreen(this.orderId, this.typeShipping);
 
   final FlareControls _controls = FlareControls();
 
@@ -74,7 +74,7 @@ class OrderScreen extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(16),
-                    child: type_shipping == "retirar_loja"
+                    child: typeShipping == "retirar_loja"
                         ? Column(
                             children: <Widget>[
                               Text(

@@ -110,17 +110,20 @@ class ProductsScreen extends StatelessWidget {
                                               height: 20,
                                               width: 20,
                                               child: LoadingWidget()),
-                                          Hero(
-                                            tag: "${data.id * 3}",
-                                            child: Material(
-                                              color: Colors.transparent,
-                                              child: Container(
-                                                child:
-                                                    FadeInImage.memoryNetwork(
-                                                  placeholder:
-                                                      kTransparentImage,
-                                                  image: data.images[0],
-                                                  fit: BoxFit.cover,
+                                          Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Hero(
+                                              tag: "${data.id * 3}",
+                                              child: Material(
+                                                color: Colors.transparent,
+                                                child: Container(
+                                                  child:
+                                                      FadeInImage.memoryNetwork(
+                                                    placeholder:
+                                                        kTransparentImage,
+                                                    image: data.images[0],
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
                                               ),
                                             ),

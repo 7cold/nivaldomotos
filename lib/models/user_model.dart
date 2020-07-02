@@ -30,12 +30,11 @@ class UserModel extends Model {
     _loadCurrentUser();
   }
 
-  void signUp({
-    @required Map<String, dynamic> userData,
-    @required String pass,
-    @required VoidCallback onSucess,
-    @required VoidCallback onFail,
-  }) {
+  void signUp(
+      {@required Map<String, dynamic> userData,
+      @required String pass,
+      @required VoidCallback onSucess,
+      @required VoidCallback onFail}) {
     isLoading = true;
     notifyListeners();
 

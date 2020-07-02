@@ -1,0 +1,98 @@
+pref id 38201203-24c400df-8396-44cb-95ad-1ec162b5bdaa
+numero operacao 6723068989
+
+https://www.mercadopago.com.br/checkout/v1/redirect/260e0766-5919-4769-9336-e5ca884e4f71/congrats/approved/?preference-id=38201203-24c400df-8396-44cb-95ad-1ec162b5bdaa&p=cafc911bebccc02a5846ec3077ddc714
+
+
+
+
+MAIS PERTO JA CHEGADO -> https://api.mercadopago.com/v1/payments/6723068989?access_token=APP_USR-4618697567453611-051814-a3a76e6bab50fbba6131c817383c1f61-38201203
+
+curl -X GET \
+    'https://api.mercadopago.com/v1/payments/6723068989?access_token=APP_USR-4618697567453611-051814-a3a76e6bab50fbba6131c817383c1f61-38201203' 
+
+{status: 200, 
+response: {acquirer: null, 
+acquirer_reconciliation: [], 
+additional_info: {available_balance: null, 
+                    ip_address: 189.126.226.109, 
+                    nsu_processadora: null}, 
+                    authorization_code: 663706, 
+                    binary_mode: false, 
+                    call_for_authorize_id: null, 
+                    captured: true, 
+                    card: {cardholder: 
+                            {identification: 
+                                {number: 11460624602, type: CPF}, 
+                                name: Leonardo Coldibelli
+                                }, 
+                            date_created: 2020-05-18T12:08:43.000-04:00, 
+                            date_last_updated: 2020-05-18T12:08:43.000-04:00, 
+                            expiration_month: 1, 
+                            expiration_year: 2027, 
+                            first_six_digits: 550209, 
+                            id: null, 
+                            last_four_digits: 4923}, 
+                            collector_id: 38201203, 
+                            corporation_id: null, 
+                            counter_currency: null,
+                             coupon_amount: 0, 
+                             currency_id: BRL, 
+                             date_approved: 2020-05-18T12:08:45.000-04:00, 
+                             date_created: 2020-05-18T12:08:43.000-04:00, 
+                             date_last_updated: 2020-05-18T12:08:45.000-04:00, 
+                             date_of_expiration: null, 
+                             deduction_schema: null, 
+                             description: Capacete x11, 
+                             differential_pricing_id: null, 
+                             external_reference: null,
+                              fee_details: [{amount: 0.02, fee_payer: collector, type: mercadopago_fee}],
+                             id: 6723068989, 
+                             installments: 1, 
+                             integrator_id: null, 
+                             issuer_id: 24,
+                              live_mode: true, 
+                              marketplace_owner: null, 
+                              merchant_account_id: null,
+                               merchant_number: null, 
+                               metadata: {}, 
+                               money_release_date: 2020-05-18T12:08:45.000-04:00,
+                                money_release_schema: null,
+                                 notification_url: null, 
+                                 operation_type: regular_payment, 
+                                 order: {id: 1330316354, type: mercadopago},
+                                  payer: {email: leobragac2@hotmail.com, 
+                                        entity_type: null, 
+                                        first_name: leonardo, 
+                                        id: 570052860, 
+                                        identification: {number: null, type: null}, 
+                                        last_name: coldibelli, 
+                                        operator_id: null, 
+                                        phone: {area_code: null, extension: null, number: null},
+                                         type: guest}, 
+                                         payment_method_id: master,
+                                          payment_type_id: credit_card, 
+                                          platform_id: null, 
+                                          pos_id: null, 
+                                          processing_mode: aggregator, 
+                                          refunds: [], 
+                                          shipping_amount: 0, 
+                                          sponsor_id: null, 
+                                          statement_descriptor: EC*7COLD, 
+                                          status: approved, 
+                                          status_detail: accredited, 
+                                          store_id: null, 
+                                          taxes_amount: 0, 
+                                          transaction_amount: 0.5, 
+                                          transaction_amount_refunded: 0, 
+                                          transaction_details: {acquirer_reference: null,
+                                                                     external_resource_url: null, 
+                                                                     financial_institution: null,
+                                                                      installment_amount: 0.5, 
+                                                                      net_received_amount: 0.48, 
+                                                                      overpaid_amount: 0, 
+                                                                      payable_deferral_period: null,
+                                                                       payment_method_reference_id: 134900402, 
+                                                                       total_paid_amount: 0.5}}}
+
+

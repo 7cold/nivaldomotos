@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nivaldomotos/constants/colors.dart';
 import 'package:nivaldomotos/constants/contants.dart';
@@ -5,11 +6,11 @@ import 'package:nivaldomotos/constants/fonts.dart';
 import 'package:nivaldomotos/models/cart_model.dart';
 import 'package:nivaldomotos/widgets/cart_price.dart';
 import 'package:nivaldomotos/widgets/discount_card.dart';
+import 'package:nivaldomotos/widgets/notification.dart';
 import 'package:nivaldomotos/widgets/product_cart_screen.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'order_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:http/http.dart' as http;
 
 class CartScreen extends StatefulWidget {
   @override
@@ -51,14 +52,13 @@ class _CartScreenState extends State<CartScreen> {
         const IosNotificationSettings(sound: true, badge: true, alert: true));
   }
 
-  void enviarNotificacao() {
-    String DATA =
-        "{\"notification\": {\"body\": \"Nova compra efetuada!\"}, \"priority\": \"high\", \"data\": {\"click_action\": \"FLUTTER_NOTIFICATION_CLICK\", \"id\": \"1\", \"status\": \"done\"}, \"to\": \"/topics/allDevices\"}";
-    http.post("https://fcm.googleapis.com/fcm/send", body: DATA, headers: {
-      "Content-Type": "application/json",
-      "Authorization":
-          "key=AAAANaWg6rc:APA91bGN-yad0Ur2d5EMYyF_xdUsia2JAdQzhGHs2mJupX0osOZM2x6H4lg3KCazP16O_2l-HjoxUIFJzaOvUM75mew9jY35HSH7aHHFBgGK9XTkSdgtix2L3EO11Wj7g3-ooy1IFZY8"
-    });
+  void _carregando() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActivityIndicator();
+      },
+    );
   }
 
   @override
@@ -247,6 +247,8 @@ class _CartScreenState extends State<CartScreen> {
                 ),
                 DiscountCard(),
                 CartPrice(() async {
+                  _carregando();
+                  await model.preferenceGetMP();
                   String orderId = await model.finishOrder();
                   if (orderId != null) {
                     enviarNotificacao();

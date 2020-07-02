@@ -103,7 +103,8 @@ class _AtendimentoScreenState extends State<AtendimentoScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            margin: EdgeInsets.only(left: 20, top: 20),
+                            margin:
+                                EdgeInsets.only(left: 20, top: 20, right: 20),
                             height: 55,
                             width: 55,
                             decoration: BoxDecoration(
@@ -116,8 +117,8 @@ class _AtendimentoScreenState extends State<AtendimentoScreen> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.only(left: 20, bottom: 20),
+                            padding: const EdgeInsets.only(
+                                left: 20, bottom: 20, right: 20),
                             child: Text(
                               "Entre em contato pelo WhatsApp >",
                               style: signUpSubTitleWhiteStyle,

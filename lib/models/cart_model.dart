@@ -2,13 +2,46 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nivaldomotos/datas/cart_product.dart';
 import 'package:nivaldomotos/models/user_model.dart';
-
+import 'package:mercadopago_sdk/mercadopago_sdk.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class CartModel extends Model {
   UserModel user;
-
+  var mp = MP("4618697567453611", "7Vb1745xBCAbFfD6CmMFpDnkkTkZSZqs");
   List<CartProduct> products = [];
+  var resultRefIdMP;
+
+  Future<Map<String, dynamic>> preferenceGetMP() async {
+    double productsPrice = getProductsPrice();
+    double shipPrice = getShipPrice();
+    double discount = getDiscount();
+
+    var preference = {
+      "items": [
+        {
+          "title": "Produtos Nivaldo Motos",
+          "quantity": 1,
+          "currency_id": "BRL",
+          "unit_price": productsPrice - discount + shipPrice
+        }
+      ],
+      "payer": {
+        "email": user.firebaseUser.email,
+        "name": user.firebaseUser.uid
+      },
+      "payment_methods": {
+        "excluded_payment_types": [
+          {"id": "atm"},
+        ]
+      },
+    };
+
+    resultRefIdMP = await mp.createPreference(preference);
+
+    print(resultRefIdMP);
+
+    return resultRefIdMP;
+  }
 
   String couponCode;
   String shipping = "retirar_loja";
@@ -146,7 +179,12 @@ class CartModel extends Model {
       "discount": discount,
       "shipping": shipping,
       "totalPrice": productsPrice - discount + shipPrice,
-      "status": 1
+      "status": 1,
+      "refIdMP": resultRefIdMP['response']['id'],
+      "payInfo": {
+        "status": "",
+        "id": "00000",
+      }
     });
 
     await Firestore.instance
@@ -192,5 +230,14 @@ class CartModel extends Model {
         query.documents.map((doc) => CartProduct.fromDocument(doc)).toList();
 
     notifyListeners();
+  }
+
+  Future createPayInfo(orderID, dataPayInfo) async {
+    isLoading = true;
+    notifyListeners();
+
+    await Firestore.instance.collection("orders").document(orderID).updateData({
+      "payInfo": dataPayInfo,
+    });
   }
 }

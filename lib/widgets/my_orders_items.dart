@@ -6,15 +6,24 @@ import 'package:nivaldomotos/constants/colors.dart';
 import 'package:nivaldomotos/constants/contants.dart';
 import 'package:nivaldomotos/constants/fonts.dart';
 import 'package:nivaldomotos/models/cart_model.dart';
+import 'package:nivaldomotos/screens/pagamento_MP.dart';
+
 import 'package:nivaldomotos/widgets/loading.dart';
 import 'package:date_format/date_format.dart';
+import 'package:nivaldomotos/widgets/status_pagamento.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'button.dart';
 
-class MyOrdersItems extends StatelessWidget {
+class MyOrdersItems extends StatefulWidget {
   final String orderId;
 
   MyOrdersItems(this.orderId);
 
+  @override
+  _MyOrdersItemsState createState() => _MyOrdersItemsState();
+}
+
+class _MyOrdersItemsState extends State<MyOrdersItems> {
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<CartModel>(
@@ -33,7 +42,7 @@ class MyOrdersItems extends StatelessWidget {
               child: StreamBuilder<DocumentSnapshot>(
                   stream: Firestore.instance
                       .collection("orders")
-                      .document(orderId)
+                      .document(widget.orderId)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData)
@@ -42,6 +51,7 @@ class MyOrdersItems extends StatelessWidget {
                       );
                     else {
                       int status = snapshot.data["status"];
+                      String payIdPost = snapshot.data["payInfo"]["id"];
 
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,41 +105,79 @@ class MyOrdersItems extends StatelessWidget {
                           SizedBox(
                             height: 4.0,
                           ),
+                          SizedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                _buildCircle("1", "Preparação", status, 1),
+                                Container(
+                                  height: 1.0,
+                                  width: MediaQuery.of(context).size.width / 20,
+                                  color: Colors.grey[500],
+                                ),
+                                _buildCircle("2", "Transporte", status, 2),
+                                Container(
+                                  height: 1.0,
+                                  width: MediaQuery.of(context).size.width / 20,
+                                  color: Colors.grey[500],
+                                ),
+                                _buildCircle("3", "Entrega", status, 3),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 12.0),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              _buildCircle("1", "Preparação", status, 1),
-                              Container(
-                                height: 1.0,
-                                width: 40.0,
-                                color: Colors.grey[500],
+                              ButtonMyOrdersSec(
+                                function: status == 1
+                                    ? () {
+                                        FlutterOpenWhatsapp.sendSingleMessage(
+                                          "5535997371366",
+                                          "Olá, gostaria de cancelar meu pedido: *${snapshot.data.documentID}*",
+                                        );
+                                        model.pararPedido(
+                                            '${snapshot.data.documentID}');
+                                      }
+                                    : null,
+                                title: "Cancelar",
+                                height: 35,
+                                width: 115,
                               ),
-                              _buildCircle("2", "Transporte", status, 2),
-                              Container(
-                                height: 1.0,
-                                width: 40.0,
-                                color: Colors.grey[500],
-                              ),
-                              _buildCircle("3", "Entrega", status, 3),
+                              snapshot.data['payInfo']['id'] == "00000" ||
+                                      snapshot.data['payInfo']['result'] ==
+                                          "canceled"
+                                  ? ButtonMyOrdersSec(
+                                      function: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                PagamentoMPScreen(
+                                                    refIdMP: snapshot
+                                                        .data['refIdMP'],
+                                                    docId: widget.orderId),
+                                          ),
+                                        );
+                                      },
+                                      title: "Pagar",
+                                      height: 35,
+                                      width: 115,
+                                    )
+                                  : ButtonMyOrders(
+                                      function: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          builder: (context) => StatusPagamento(
+                                            payId: payIdPost,
+                                          ),
+                                        );
+                                      },
+                                      title: "Status",
+                                      height: 35,
+                                      width: 115,
+                                    )
                             ],
                           ),
-                          SizedBox(height: 4.0),
-                          OutlineButton(
-                            color: Color(primaryColor),
-                            highlightColor: Color(accentColor).withOpacity(0.8),
-                            highlightedBorderColor: Color(primaryColor),
-                            onPressed: status == 1
-                                ? () {
-                                    FlutterOpenWhatsapp.sendSingleMessage(
-                                      "5535997371366",
-                                      "Olá, gostaria de cancelar meu pedido: *${snapshot.data.documentID}*",
-                                    );
-                                    model.pararPedido(
-                                        '${snapshot.data.documentID}');
-                                  }
-                                : null,
-                            child: Text("Cancelar"),
-                          )
                         ],
                       );
                     }

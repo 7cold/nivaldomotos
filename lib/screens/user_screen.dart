@@ -110,7 +110,7 @@ class UserScreen extends StatelessWidget {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 20, bottom: 20),
+                                          left: 20, bottom: 20, right: 20),
                                       child: Text(
                                         "Informações pessoais e endereço de entrega >",
                                         style: signUpSubTitleWhiteStyle,
@@ -167,7 +167,7 @@ class UserScreen extends StatelessWidget {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 20, bottom: 20),
+                                          left: 20, bottom: 20, right: 20),
                                       child: Text(
                                         "Acompanhar meus Pedidos >",
                                         style: signUpSubTitleWhiteStyle,
@@ -218,7 +218,7 @@ class UserScreen extends StatelessWidget {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 20, bottom: 20),
+                                          left: 20, bottom: 20, right: 20),
                                       child: Text(
                                         "Problemas? Não se preocupe, entre em contato conosco... >",
                                         style: signUpSubTitleWhiteStyle,

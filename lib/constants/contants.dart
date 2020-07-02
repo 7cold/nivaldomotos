@@ -1,3 +1,3 @@
 import 'package:flutter/material.dart';
 
-BorderRadius borderAll = BorderRadius.circular(20);
+BorderRadius borderAll = BorderRadius.circular(10);

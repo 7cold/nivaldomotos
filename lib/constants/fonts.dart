@@ -14,6 +14,9 @@ const String fontLight = "PoppinsLight";
 TextStyle buttonStyle =
     TextStyle(fontFamily: fontBold, color: Colors.white, fontSize: 16);
 
+TextStyle payStatus =
+    TextStyle(fontFamily: fontBold, color: Colors.white, fontSize: 14);
+
 TextStyle circleProductsLenghtStyle = TextStyle(
     fontFamily: fontBold, color: Color(backgroundColorDark), fontSize: 14);
 
@@ -35,8 +38,8 @@ TextStyle categorySubStyle = TextStyle(
 
 // ---------------------------Card-----------------------------------------
 // --------------------------------------------------------------------------
-TextStyle cardTextStyle = TextStyle(
-    fontFamily: fontSemiBold, color: Color(backgroundColorDark), fontSize: 15);
+TextStyle cardTextStyle =
+    TextStyle(fontFamily: fontSemiBold, color: Colors.grey[700], fontSize: 15);
 
 TextStyle cardPriceStyle = TextStyle(
     fontFamily: fontExtraBold, color: Color(backgroundColorDark), fontSize: 16);
